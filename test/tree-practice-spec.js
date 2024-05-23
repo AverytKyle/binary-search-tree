@@ -241,6 +241,12 @@ describe('Binary Tree Practice', () => {
       expect(getHeight(bstRoot.right.right)).to.equal(0);
     });
 
+    //      4
+    //    /   \
+    //   2     6
+    //  / \   / \
+    // 1   3 5   7
+
     it('should work on a subtree', function() {
       expect(getHeight(bstRoot.left)).to.equal(1);
       expect(getHeight(bstRootUnbalanced.right)).to.equal(5);
