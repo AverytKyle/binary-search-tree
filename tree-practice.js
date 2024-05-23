@@ -108,10 +108,10 @@ function getHeight (rootNode) {
       if (!rootNode.left && !rootNode.right) return 0
 
 
-      let leftHeight = this.getHeight(rootNode.left)
-      let rightHeight = this.getHeight(rootNode.right) 
+      let leftHeight = getHeight(rootNode.left)
+      let rightHeight = getHeight(rootNode.right) 
 
-      return Math.max(leftHeight, rightHeight)
+      return Math.max(leftHeight, rightHeight) + 1
       
 }
 
