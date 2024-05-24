@@ -115,24 +115,76 @@ function countNodes(rootNode) {
 
 function getParentNode(rootNode, target) {
   // Your code here 
+  const stack = [rootNode]
+  if (rootNode.val === target) return null
+
+  while (stack.length) {
+    let node = stack.pop()
+
+    if (node.left) {
+      if (node.left.val === target) {
+      return node
+      } else {
+      stack.push(node.left)
+      }
+    }
+    if (node.right) {
+      if (node.right.val === target) {
+      return node
+    } else {
+      stack.push(node.right)
+    }
+    }
+  }
+  return undefined
+  
 }
 
 function inOrderPredecessor(rootNode, target) {
   // Your code here 
+  if (!rootNode) return null
+
+  if (target <= rootNode.val) return inOrderPredecessor(rootNode.left, target)
+  else {
+    const node = inOrderPredecessor(rootNode.right, target)
+    if (node) return node
+    else return rootNode.val
+  }
+
+    //      4
+    //    /   \
+    //   2     6
+    //  / \   / \
+    // 1   3 5   7
+  
 }
 
 function deleteNodeBST(rootNode, target) {
-  // Do a traversal to find the node. Keep track of the parent
-
+  // Do a traversal to find the node. Keep track of the currNode
+  
   // Undefined if the target cannot be found
 
-  // Set target based on parent
+  // Set target based on currNode
 
-  // Case 0: Zero children and no parent:
+  // Case 0: Zero children and no currNode:
   //   return null
-
+  let queue = [this.root]
+  
+      while(queue.length) {
+        const currNode = queue.shift()
+        
+        if(currNode.left) {
+          if (currNode.left.val === target) {
+            let 
+          }
+          queue.push(currNode.left)
+        }
+        if(currNode.right) {
+          queue.push(currNode.right)
+        }
+      }
   // Case 1: Zero children:
-  //   Set the parent that points to it to null
+  //   Set the currNode that points to it to null
 
   // Case 2: Two children:
   //  Set the value to its in-order predecessor, then delete the predecessor
@@ -141,7 +193,7 @@ function deleteNodeBST(rootNode, target) {
   //  Then delete the child that it was replaced with.
 
   // Case 3: One child:
-  //   Make the parent point to the child
+  //   Make the currNode point to the child
 
 }
 
