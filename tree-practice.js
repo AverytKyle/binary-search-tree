@@ -168,21 +168,21 @@ function deleteNodeBST(rootNode, target) {
 
   // Case 0: Zero children and no currNode:
   //   return null
-  let queue = [this.root]
+  // let queue = [this.root]
   
-      while(queue.length) {
-        const currNode = queue.shift()
+  //     while(queue.length) {
+  //       const currNode = queue.shift()
         
-        if(currNode.left) {
-          if (currNode.left.val === target) {
-            let 
-          }
-          queue.push(currNode.left)
-        }
-        if(currNode.right) {
-          queue.push(currNode.right)
-        }
-      }
+  //       if(currNode.left) {
+  //         if (currNode.left.val === target) {
+  //           let 
+  //         }
+  //         queue.push(currNode.left)
+  //       }
+  //       if(currNode.right) {
+  //         queue.push(currNode.right)
+  //       }
+  //     }
   // Case 1: Zero children:
   //   Set the currNode that points to it to null
 
@@ -194,6 +194,29 @@ function deleteNodeBST(rootNode, target) {
 
   // Case 3: One child:
   //   Make the currNode point to the child
+
+  if (rootNode === null) return rootNode;
+
+  if (target < rootNode.val)
+    rootNode.left = deleteNodeBST(rootNode.left, target)
+  // If the key to be deleted is greater than the root's key, then it lies in the right subtree
+  else if (target > rootNode.val)
+    rootNode.right = deleteNodeBST(rootNode.right, target)
+  // If key is same as root's key, then this is the node to be deleted
+  else {
+     // Node with only one child or no child
+    if (rootNode.left === null) 
+      return rootNode.right
+    else if (rootNode.right === null)
+      return rootNode.left
+            
+      
+      // Node with two children: Get the inorder successor (smallest in the right subtree)
+    rootNode.val = findMinBST(rootNode.right)
+      // Delete the inorder successor
+    rootNode.right = deleteNodeBST(rootNode.right, rootNode.val)
+  }
+  return rootNode
 
 }
 
