@@ -195,27 +195,32 @@ function deleteNodeBST(rootNode, target) {
   // Case 3: One child:
   //   Make the currNode point to the child
 
-  if (rootNode === null) return rootNode;
+  if (!rootNode) return rootNode;
 
-  if (target < rootNode.val)
+  if (target < rootNode.val) 
     rootNode.left = deleteNodeBST(rootNode.left, target)
   // If the key to be deleted is greater than the root's key, then it lies in the right subtree
   else if (target > rootNode.val)
     rootNode.right = deleteNodeBST(rootNode.right, target)
   // If key is same as root's key, then this is the node to be deleted
-  else {
+  else if (target === rootNode.val) {
      // Node with only one child or no child
-    if (rootNode.left === null) 
+    if (!rootNode.left) 
       return rootNode.right
-    else if (rootNode.right === null)
+    else if (!rootNode.right)
       return rootNode.left
-            
-      
-      // Node with two children: Get the inorder successor (smallest in the right subtree)
     rootNode.val = findMinBST(rootNode.right)
       // Delete the inorder successor
     rootNode.right = deleteNodeBST(rootNode.right, rootNode.val)
   }
+    else {
+      return undefined
+  }
+            
+      
+      // Node with two children: Get the inorder successor (smallest in the right subtree)
+  
+  
   return rootNode
 
 }
