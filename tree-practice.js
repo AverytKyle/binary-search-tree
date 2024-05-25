@@ -88,10 +88,10 @@ function getHeight(rootNode) {
 
 function balancedTree(rootNode) {
   if (!rootNode) return true
-  
+
   let countLeft = getHeight(rootNode.left)
   let countRight = getHeight(rootNode.right)
-  
+
   return Math.abs(countLeft - countRight) <= 1 && balancedTree(rootNode.left) && balancedTree(rootNode.right)
 }
 
@@ -123,21 +123,21 @@ function getParentNode(rootNode, target) {
 
     if (node.left) {
       if (node.left.val === target) {
-      return node
+        return node
       } else {
-      stack.push(node.left)
+        stack.push(node.left)
       }
     }
     if (node.right) {
       if (node.right.val === target) {
-      return node
-    } else {
-      stack.push(node.right)
-    }
+        return node
+      } else {
+        stack.push(node.right)
+      }
     }
   }
   return undefined
-  
+
 }
 
 function inOrderPredecessor(rootNode, target) {
@@ -151,79 +151,49 @@ function inOrderPredecessor(rootNode, target) {
     else return rootNode.val
   }
 
-    //      4
-    //    /   \
-    //   2     6
-    //  / \   / \
-    // 1   3 5   7
-  
+  //      4
+  //    /   \
+  //   2     6
+  //  / \   / \
+  // 1   3 5   7
+
 }
 
 function deleteNodeBST(rootNode, target) {
   // Do a traversal to find the node. Keep track of the currNode
-  
+  let parentNode = getParentNode(rootNode, target);
   // Undefined if the target cannot be found
-
-  // Set target based on currNode
-
-  // Case 0: Zero children and no currNode:
-  //   return null
-  // let queue = [this.root]
+  if (parentNode === undefined) return undefined;
   
-  //     while(queue.length) {
-  //       const currNode = queue.shift()
-        
-  //       if(currNode.left) {
-  //         if (currNode.left.val === target) {
-  //           let 
-  //         }
-  //         queue.push(currNode.left)
-  //       }
-  //       if(currNode.right) {
-  //         queue.push(currNode.right)
-  //       }
-  //     }
-  // Case 1: Zero children:
-  //   Set the currNode that points to it to null
-
-  // Case 2: Two children:
-  //  Set the value to its in-order predecessor, then delete the predecessor
-  //  Replace target node with the left most child on its right side, 
-  //  or the right most child on its left side.
-  //  Then delete the child that it was replaced with.
-
-  // Case 3: One child:
-  //   Make the currNode point to the child
-
-  if (!rootNode) return rootNode;
-
-  if (target < rootNode.val) 
+  if (target < rootNode.val)
     rootNode.left = deleteNodeBST(rootNode.left, target)
   // If the key to be deleted is greater than the root's key, then it lies in the right subtree
   else if (target > rootNode.val)
     rootNode.right = deleteNodeBST(rootNode.right, target)
   // If key is same as root's key, then this is the node to be deleted
-  else if (target === rootNode.val) {
-     // Node with only one child or no child
-    if (!rootNode.left) 
+  else {
+    // Node with only one child or no child
+    if (!rootNode.left)
       return rootNode.right
     else if (!rootNode.right)
       return rootNode.left
+    // Node with two children: Get the inorder successor (smallest in the right subtree)
     rootNode.val = findMinBST(rootNode.right)
-      // Delete the inorder successor
+    // Delete the inorder successor
     rootNode.right = deleteNodeBST(rootNode.right, rootNode.val)
   }
-    else {
-      return undefined
-  }
-            
-      
-      // Node with two children: Get the inorder successor (smallest in the right subtree)
-  
-  
   return rootNode
-
 }
+
+bstRoot = new TreeNode(4);
+bstRoot.left = new TreeNode(2);
+bstRoot.left.left = new TreeNode(1);
+bstRoot.left.right = new TreeNode(3);
+bstRoot.right = new TreeNode(6);
+bstRoot.right.left = new TreeNode(5);
+bstRoot.right.right = new TreeNode(7);
+
+deleteNodeBST(bstRoot, 9)
 
 module.exports = {
   findMinBST,
